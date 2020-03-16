@@ -8,14 +8,14 @@ pipeline {
         echo 'Building..'
         
         // send slack notification
-        slackSend (color: '#000000', message: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+        slackSend (color: '#000000', message: "STARTED: Job is starting")
 
         // send to email
         emailext (
-          subject: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-          body: """<p>STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
-            <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
-          recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+          subject: "STARTED: Job is starting",
+          body: """<p>STARTED: Job is starting:</p>
+            <p>Check console output at &QUOT;<a href='http://localhost:9090/job/spring-petclinic/job'></a>&QUOT;</p>""",
+          recipientProviders: ["m_hmadi@live.concordia.ca"]]
         )
       }
     }
@@ -33,25 +33,29 @@ pipeline {
 
   post {
     success {
-      slackSend (color: '#00FF00', message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+      // send slack notification
+        slackSend (color: '#000000', message: "SUCCESSFUL: Job is built successfully")
 
-      emailext (
-        subject: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-        body: """<p>SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
-          <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
-        recipientProviders: [[$class: 'DevelopersRecipientProvider']]
-      )
+        // send to email
+        emailext (
+          subject: "SUCCESSFUL: Job is built successfully",
+          body: """<p>SUCCESSFUL: Job is built successfully:</p>
+            <p>Check console output at &QUOT;<a href='http://localhost:9090/job/spring-petclinic/job'></a>&QUOT;</p>""",
+          recipientProviders: ["m_hmadi@live.concordia.ca"]]
+        )
     }
 
     failure {
-      slackSend (color: '#FF0000', message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+      // send slack notification
+        slackSend (color: '#000000', message: "FAILED: Job failed to build")
 
-      emailext (
-        subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-        body: """<p>FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
-          <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
-        recipientProviders: [[$class: 'DevelopersRecipientProvider']]
-      )
+        // send to email
+        emailext (
+          subject: "FAILED: Job failed to build",
+          body: """<p>FAILED: Job failed to build:</p>
+            <p>Check console output at &QUOT;<a href='http://localhost:9090/job/spring-petclinic/job'></a>&QUOT;</p>""",
+          recipientProviders: ["m_hmadi@live.concordia.ca"]]
+        )
     }
   }
 }
