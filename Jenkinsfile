@@ -15,7 +15,8 @@ pipeline {
           subject: "STARTED: Job is starting",
           body: """<p>STARTED: Job is starting:</p>
             <p>Check console output at &QUOT;<a href='http://localhost:9090/job/spring-petclinic/job'></a>&QUOT;</p>""",
-          recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+          to: "m_hmadi@live.concordia.ca",
+          recipientProviders: [[$class: 'CulpritsRecipientProvider'],[$class: 'RequesterRecipientProvider']], 
         )
       }
     }
@@ -41,7 +42,8 @@ pipeline {
           subject: "SUCCESSFUL: Job is built successfully",
           body: """<p>SUCCESSFUL: Job is built successfully:</p>
             <p>Check console output at &QUOT;<a href='http://localhost:9090/job/spring-petclinic/job'></a>&QUOT;</p>""",
-          recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+          to: "m_hmadi@live.concordia.ca",
+          recipientProviders: [[$class: 'CulpritsRecipientProvider'],[$class: 'RequesterRecipientProvider']], 
         )
     }
 
@@ -54,8 +56,11 @@ pipeline {
           subject: "FAILED: Job failed to build",
           body: """<p>FAILED: Job failed to build:</p>
             <p>Check console output at &QUOT;<a href='http://localhost:9090/job/spring-petclinic/job'></a>&QUOT;</p>""",
-          recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+          to: "m_hmadi@live.concordia.ca",
+          recipientProviders: [[$class: 'CulpritsRecipientProvider'],[$class: 'RequesterRecipientProvider']], 
         )
+
+
     }
   }
 }
